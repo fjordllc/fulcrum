@@ -22,6 +22,8 @@ gem 'configuration'
 gem 'fastercsv', '1.5.3', :platforms => :ruby_18
 # (using standard csv lib if ruby version is 1.9)
 
+gem 'lingman', github: 'hrysd/lingman'
+
 group :production do
   gem 'pg'
 end
