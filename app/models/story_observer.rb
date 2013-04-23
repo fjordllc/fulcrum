@@ -9,7 +9,7 @@ class StoryObserver < ActiveRecord::Observer
 
       unless story.project.suppress_notifications
 
-        if story.action_user
+        if not story.acting_user.nil?
           text = "#{story.acting_user.name}が「#{story.title}」を#{story.state}にしました。"
           Lingman::Updater.update('deploy_notifier', 'takoroom', 'HAv2chF0luUYrUQ2p11DsEr57gT', text)
         end
