@@ -9,8 +9,10 @@ class StoryObserver < ActiveRecord::Observer
 
       unless story.project.suppress_notifications
 
-        text = "#{story.acting_user.name}が「#{story.title}」を#{story.state}にしました。"
-        Lingman::Updater.update('deploy_notifier', 'takoroom', 'HAv2chF0luUYrUQ2p11DsEr57gT', text)
+        if story.action_user
+          text = "#{story.acting_user.name}が「#{story.title}」を#{story.state}にしました。"
+          Lingman::Updater.update('deploy_notifier', 'takoroom', 'HAv2chF0luUYrUQ2p11DsEr57gT', text)
+        end
 
         # Send a 'the story has been delivered' notification if the state has
         # changed to 'delivered'
