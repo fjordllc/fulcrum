@@ -11,7 +11,7 @@ class StoryObserver < ActiveRecord::Observer
 
         if not story.acting_user.nil?
           text = "#{story.acting_user.name}が「#{story.title}」を#{story.state}にしました。"
-          Lingman::Updater.update('deploy_notifier', 'takoroom', 'HAv2chF0luUYrUQ2p11DsEr57gT', text)
+          Lingman::Updater.update('fjord_assistant', 'takoroom', 'ASQYUefG1XLx3Mwut7wU44oJh2m', text)
         end
 
         # Send a 'the story has been delivered' notification if the state has
