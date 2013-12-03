@@ -9,10 +9,7 @@ class StoryObserver < ActiveRecord::Observer
 
       unless story.project.suppress_notifications
 
-        if not story.acting_user.nil?
-          text = "#{story.acting_user.name}が「#{story.title}」を#{story.state}にしました。"
-          Lingman::Updater.update('fjord_assistant', 'takoroom', 'ASQYUefG1XLx3Mwut7wU44oJh2m', text)
-        end
+        notify(story)
 
         # Send a 'the story has been delivered' notification if the state has
         # changed to 'delivered'
@@ -53,4 +50,15 @@ class StoryObserver < ActiveRecord::Observer
 
   end
 
+  private
+    def notify(story)
+      if not story.acting_user.nil?
+        Lingman::Updater.update(
+          ENV['BOT_ID'],
+          ENV['BOT_ROOM_ID'],
+          ENV['BOT_SECRET'],
+          "#{story.acting_user.name}が「#{story.title}」を#{story.state}にしました。"
+        )
+      end
+    end
 end
